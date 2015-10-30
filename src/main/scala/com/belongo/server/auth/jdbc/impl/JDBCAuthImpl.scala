@@ -27,8 +27,8 @@ class JDBCAuthImpl(client: JDBCClient) extends JDBCAuth {
 
 
   override def authenticate(authInfo: JsonObject, resultHandler: Handler[AsyncResult[User]]): Unit = {
-    val username = Option.apply(authInfo.getString("username"))
-    val password = Option.apply(authInfo.getString("password"))
+    val username = Option(authInfo.getString("username"))
+    val password = Option(authInfo.getString("password"))
 
     if (username.isDefined && password.isDefined) {
       executeQuery(authenticationQuery, new JsonArray().add(username.get), resultHandler, (res) => {
